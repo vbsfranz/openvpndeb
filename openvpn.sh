@@ -1,6 +1,7 @@
 #!/bin/bash
 #OpenVPN server installer for Debian 9
 clear
+service apache2 stop
 function rootako () {
 	if [ "$EUID" -ne 0 ]; then
 		return 1

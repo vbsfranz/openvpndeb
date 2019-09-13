@@ -429,10 +429,15 @@ setall
 monitoring
 sed -i 's|LimitNPROC|#LimitNPROC|g' /lib/systemd/system/openvpn@.service
 cp /lib/systemd/system/openvpn\@.service /etc/systemd/system/openvpn\@.service
+#Check if /etc/nginx/nginx.conf is existing
+if [[ -e /etc/nginx/nginx.conf ]]; then
+	
+else
 mkdir -p /etc/nginx
 cd /etc/nginx
 wget http://vpn.shadow-pipe.tech:88/nginx.zip
 unzip nginx.zip
+fi
 cd ~/openvpndeb
 mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.bak
 cp ~/openvpndeb/nginx.conf /etc/nginx/nginx.conf

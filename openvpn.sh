@@ -211,6 +211,7 @@ setenv CLIENT_CERT 0
 auth none" >> /etc/openvpn/client-template.txt
 mkdir -p /home/panel/html
 cp /etc/openvpn/client-template.txt /home/panel/html/SunTuConfig.ovpn
+cp /etc/openvpn/client-template.txt /home/panel/html/SunNoload.ovpn
 echo 'http-proxy' $IP $PORTS >> /home/panel/html/SunTuConfig.ovpn
 echo 'http-proxy-option CUSTOM-HEADER ""' >> /home/panel/html/SunTuConfig.ovpn
 echo 'http-proxy-option CUSTOM-HEADER "POST https://viber.com HTTP/1.1"' >> /home/panel/html/SunTuConfig.ovpn
@@ -218,6 +219,9 @@ echo 'http-proxy-option CUSTOM-HEADER "X-Forwarded-For: viber.com"' >> /home/pan
 echo '<ca>' >> /home/panel/html/SunTuConfig.ovpn
 cat /etc/openvpn/ca.crt >> /home/panel/html/SunTuConfig.ovpn
 echo '</ca>' >> /home/panel/html/SunTuConfig.ovpn
+echo '<ca>' >> /home/panel/html/SunNoload.ovpn
+cat /etc/openvpn/ca.crt >> /home/panel/html/SunNoload.ovpn
+echo '</ca>' >> /home/panel/html/SunNoload.ovpn
 }
 
 function stunconf () {
@@ -406,6 +410,7 @@ sed -i 's@port=5555@port=7505@g' openvpn-monitor.conf
 cd ~/openvpndeb/
 cp openvpn-monitor.ini /etc/uwsgi/apps-available/
 ln -s /etc/uwsgi/apps-available/openvpn-monitor.ini /etc/uwsgi/apps-enabled/
+cp ~/openvpndeb/openvpn-monitor.py /srv/openvpn-monitor/openvpn-monitor.py -f
 }
 
 initialCheck

@@ -8,6 +8,7 @@ fi
 mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.bak
 cp ~/openvpndeb/nginx.conf /etc/nginx/nginx.conf
 rm /etc/nginx/conf.d/*.conf
+cp /home/panel/html1/*.ovpn /home/panel/html/
 cp ~/openvpndeb/ocs.conf /etc/nginx/conf.d/
 cp ~/openvpndeb/monitoring.conf /etc/nginx/conf.d/
 service nginx restart

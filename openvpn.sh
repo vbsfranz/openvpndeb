@@ -211,7 +211,6 @@ setenv CLIENT_CERT 0
 auth none" >> /etc/openvpn/client-template.txt
 mkdir -p /home/panel/html
 cp /etc/openvpn/client-template.txt /home/panel/html/SunTuConfig.ovpn
-cp /etc/openvpn/client-template.txt /home/panel/html/SunNoload.ovpn
 echo 'http-proxy' $IP $PORTS >> /home/panel/html/SunTuConfig.ovpn
 echo 'http-proxy-option CUSTOM-HEADER ""' >> /home/panel/html/SunTuConfig.ovpn
 echo 'http-proxy-option CUSTOM-HEADER "POST https://viber.com HTTP/1.1"' >> /home/panel/html/SunTuConfig.ovpn
@@ -219,6 +218,37 @@ echo 'http-proxy-option CUSTOM-HEADER "X-Forwarded-For: viber.com"' >> /home/pan
 echo '<ca>' >> /home/panel/html/SunTuConfig.ovpn
 cat /etc/openvpn/ca.crt >> /home/panel/html/SunTuConfig.ovpn
 echo '</ca>' >> /home/panel/html/SunTuConfig.ovpn
+}
+
+function noload () {
+echo "client" > /etc/openvpn/client-template1.txt
+	if [[ "$PROTOCOL" = 'udp' ]]; then
+		echo "proto udp" >> /etc/openvpn/client-template1.txt
+	elif [[ "$PROTOCOL" = 'tcp' ]]; then
+		echo "proto tcp" >> /etc/openvpn/client-template1.txt
+	fi
+	echo "remote $IP $PORT
+dev tun
+persist-key
+persist-tun
+dev tun
+bind
+float
+lport 110
+remote-cert-tls server
+verb 0
+auth-user-pass
+redirect-gateway def1
+cipher none
+auth none
+auth-nocache
+setenv CLIENT_CERT 0
+auth-retry interact
+connect-retry 0 1
+nice -20
+reneg-sec 0
+log /dev/null" >> /etc/openvpn/client-template1.txt
+cp /etc/openvpn/client-template1.txt /home/panel/html/SunNoload.ovpn
 echo '<ca>' >> /home/panel/html/SunNoload.ovpn
 cat /etc/openvpn/ca.crt >> /home/panel/html/SunNoload.ovpn
 echo '</ca>' >> /home/panel/html/SunNoload.ovpn
@@ -226,7 +256,6 @@ echo '</ca>' >> /home/panel/html/SunNoload.ovpn
 
 function stunconf () {
 cat > /etc/stunnel/stunnel.conf <<-END
-
 sslVersion = all
 pid = /var/run/stunnel.pid
 cert = /etc/stunnel/stunnel.pem
@@ -322,7 +351,7 @@ function installQuestions () {
 	fi
 	echo ""
 	echo 'Your IP is '"$IP" '.. What port do you want OpenVPN to listen to?'
-	echo "   1) Default: 1194"
+	echo "   1) Default: 465"
 	echo "   2) Custom"
 	echo "   3) Random [49152-65535]"
 	until [[ "$PORT_CHOICE" =~ ^[1-3]$ ]]; do
@@ -330,11 +359,11 @@ function installQuestions () {
 	done
 	case $PORT_CHOICE in
 		1)
-			PORT="1194"
+			PORT="465"
 		;;
 		2)
 			until [[ "$PORT" =~ ^[0-9]+$ ]] && [ "$PORT" -ge 1 ] && [ "$PORT" -le 65535 ]; do
-				read -rp "Custom port [1-65535]: " -e -i 1194 PORT
+				read -rp "Custom port [1-65535]: " -e -i 465 PORT
 			done
 		;;
 		3)
@@ -431,6 +460,7 @@ serverconf
 disableipv6
 setiptables
 clientovpn
+noload
 stunconf
 privoxconfig
 setall

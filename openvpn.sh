@@ -497,6 +497,7 @@ echo "======================================================="
 echo "======================================================="
 echo 'The configuration file is available at /home/panel/html/SunTuConfig.ovpn'
 echo 'Or http://'"$IP"':88/SunTuConfig.ovpn'
+echo 'Or http://'"$IP"':88/SunNoload.ovpn'
 echo "Download the .ovpn file and import it in your OpenVPN client."
 echo 'Use menu to create accounts'
 echo 'OCS panel http://'"$IP"':88'

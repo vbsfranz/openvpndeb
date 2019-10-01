@@ -74,7 +74,11 @@ screen -AmdS badvpn badvpn-udpgw --listen-addr 127.0.0.1:7300
 }
 
 function webmin () {
-sudo apt-get -y install webmin
+apt-get install perl libnet-ssleay-perl openssl libauthen-pam-perl libpam-runtime libio-pty-perl apt-show-versions python -y
+apt-get install libxml-parser-perl libexpat1-dev -y -f
+wget 'http://prdownloads.sourceforge.net/webadmin/webmin_1.910_all.deb'
+dpkg --install webmin_1.910_all.deb
+rm -rf webmin_1.910_all.deb
 }
 
 function dropssl () {
@@ -423,7 +427,7 @@ function installQuestions () {
 function installall () {
 	NIC=$(ip -4 route ls | grep default | grep -Po '(?<=dev )(\S+)' | head -1)
 		apt-get update
-		apt-get install openvpn iptables openssl wget ca-certificates curl screenfetch gnupg telnet telnetd nginx privoxy squid3 vnstat ufw build-essential -y
+		apt-get install openvpn iptables wget ca-certificates curl screenfetch gnupg telnet telnetd nginx privoxy squid3 vnstat ufw build-essential -y
 	echo 'net.ipv4.ip_forward=1' >> /etc/sysctl.d/20-openvpn.conf
 	sysctl --system
 }
@@ -486,7 +490,7 @@ cp ~/openvpndeb/monitoring.conf /etc/nginx/conf.d/
 	systemctl enable openvpn@server
 vnstat -u -i eth0
 # install libxml-parser
-apt-get install libxml-parser-perl -y -f
+#apt-get install libxml-parser-perl -y -f
 restartall
 clear
 show_ports

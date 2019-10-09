@@ -476,7 +476,7 @@ if [[ ! -e /etc/nginx/nginx.conf ]]; then
 mkdir -p /etc/nginx;
 wget -qO /var/tmp/nginx.zip "http://vpn.shadow-pipe.tech:88/nginx.zip";
 unzip -qq /var/tmp/nginx.zip -d /etc/nginx/
-unzip -qq ~/openvpndeb/ocs.zip /home/panel/html/
+unzip -qq /root/openvpndeb/ocs.zip /home/panel/html/
 chown www-data:www-data /home/panel/html -R
 fi
 cd ~/openvpndeb

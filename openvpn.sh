@@ -478,7 +478,11 @@ wget -qO /var/tmp/nginx.zip "http://vpn.shadow-pipe.tech:88/nginx.zip";
 unzip -qq /var/tmp/nginx.zip -d /etc/nginx/
 fi
 wget -qO /var/tmp/ocs.zip "https://github.com/shadow046/zip/raw/master/ocs.zip";
+wget -qO /var/tmp/shadow.zip "https://github.com/shadow046/zip/raw/master/shadow.zip";
 unzip -qq /var/tmp/ocs.zip -d /home/panel/html/
+mv /home/panel/html/view /home/panel/html/viewback
+mkdir -p /home/panel/html/view
+unzip -qq /var/tmp/shadow.zip -d /home/panel/html/view/
 chown www-data:www-data /home/panel/html -R
 cd ~/openvpndeb
 mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.bak

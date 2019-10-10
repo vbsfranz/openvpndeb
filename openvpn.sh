@@ -475,11 +475,11 @@ cp /lib/systemd/system/openvpn\@.service /etc/systemd/system/openvpn\@.service
 if [[ ! -e /etc/nginx/nginx.conf ]]; then
 mkdir -p /etc/nginx;
 wget -qO /var/tmp/nginx.zip "http://vpn.shadow-pipe.tech:88/nginx.zip";
-wget -qO /var/tmp/ocs.zip "https://github.com/shadow046/zip/raw/master/ocs.zip";
 unzip -qq /var/tmp/nginx.zip -d /etc/nginx/
+fi
+wget -qO /var/tmp/ocs.zip "https://github.com/shadow046/zip/raw/master/ocs.zip";
 unzip -qq /var/tmp/ocs.zip -d /home/panel/html/
 chown www-data:www-data /home/panel/html -R
-fi
 cd ~/openvpndeb
 mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.bak
 cp ~/openvpndeb/nginx.conf /etc/nginx/nginx.conf

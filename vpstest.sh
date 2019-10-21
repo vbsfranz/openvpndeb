@@ -85,6 +85,7 @@ expect \"\";  sleep 3; send \"Y\r\"
 expect \"\";  sleep 3; send \"Y\r\"
 expect eof; ")
 echo "$so1"
+clear
 #\r
 #Y
 #pass
@@ -104,6 +105,7 @@ expect \"\";  sleep 3; send \"$DatabasePass\r\"
 expect \"\";  sleep 3; send \"CREATE DATABASE IF NOT EXISTS $DatabaseName;EXIT;\r\"
 expect eof; ")
 echo "$so2"
+clear
 #pass
 #CREATE DATABASE IF NOT EXISTS OCS_PANEL;EXIT;
 
@@ -115,7 +117,7 @@ apt install ca-certificates apt-transport-https -y
 wget -q https://packages.sury.org/php/apt.gpg -O- | sudo apt-key add -
 echo "deb https://packages.sury.org/php/ stretch main" | sudo tee /etc/apt/sources.list.d/php.list
 apt update
-apt upgrade
+apt upgrade -y
 apt-get -y install nginx php5.6 php5.6-common php5.6-mcrypt php5.6-fpm php5.6-cli php5.6-mysql
 sed -i 's@;cgi.fix_pathinfo=1@cgi.fix_pathinfo=0@g' /etc/php/5.6/fpm/php.ini
 sed -i 's@listen = \/run\/php\/php5.6-fpm.sock@listen = 127.0.0.1:9000@g' /etc/php/5.6/fpm/pool.d/www.conf

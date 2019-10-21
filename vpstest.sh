@@ -54,7 +54,7 @@ function initialCheck () {
 function installmysql () {
 clear
 echo ""
-echo "I need to ask some questions before starting setup"
+echo "For OCS installation naman konti lang yan"
 echo "You can leave the default option and just hit enter if you agree with the option"
 echo ""
 echo "First I need to know the new password of MySQL root user:"

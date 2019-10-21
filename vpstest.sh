@@ -55,6 +55,7 @@ function installmysql () {
 clear
 echo ""
 echo "For OCS installation naman konti lang yan"
+echo ""
 echo "You can leave the default option and just hit enter if you agree with the option"
 echo ""
 echo "First I need to know the new password of MySQL root user:"
@@ -423,6 +424,7 @@ function installQuestions () {
 		#	read -rp "Public IPv4 address or hostname: " -e ENDPOINT
 		#done
 	fi
+	clear
 	echo ""
 	echo 'Your IP is '"$IP" '.. What port do you want OpenVPN to listen to?'
 	echo "   1) Default: 465"

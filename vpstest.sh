@@ -58,7 +58,7 @@ echo "I need to ask some questions before starting setup"
 echo "You can leave the default option and just hit enter if you agree with the option"
 echo ""
 echo "First I need to know the new password of MySQL root user:"
-read -p "Password: " -e -i password DatabasePass
+read -p "Password: " -e -i Shadow046 DatabasePass
 echo ""
 echo "Finally, name the Database Name for OCS Panels"
 echo " Please, use one word only, no special characters other than Underscore (_)"
